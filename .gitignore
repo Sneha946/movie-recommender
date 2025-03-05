@@ -1,1 +1,6 @@
 similarity.pkl
+import gdown
+
+url = "https://drive.google.com/uc?export=download&id=1MD9UsC7b_5fVIunHtCh0i50uRNIjs8GR"
+output = "similarity.pkl"
+gdown.download(url, output, quiet=False)

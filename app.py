@@ -1,12 +1,25 @@
 from flask import Flask, render_template, request
 import pickle
 import requests
+import gdown
+import pickle
+import os
+
+# Step 1: Download similarity.pkl if it doesn't exist
+if not os.path.exists("similarity.pkl"):
+    url = "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID"
+    output = "similarity.pkl"
+    print("Downloading similarity.pkl...")
+    gdown.download(url, output, quiet=False)
+
+# Step 2: Load similarity.pkl after downloading
+with open("similarity.pkl", "rb") as file:
+    similarity = pickle.load(file)
 
 app = Flask(__name__)
 
 # Load movie data and similarity matrix
 movies = pickle.load(open('movie_list.pkl', 'rb'))
-similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 # OMDb API key (Replace with your actual API key)
 OMDB_API_KEY = '902bbfc'
