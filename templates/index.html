@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Movie Recommender</h1>
+        <form action="/" method="POST">
+            <label for="movie">Select a Movie:</label>
+            <select name="movie" id="movie" required>
+                {% for movie in movies %}
+                <option value="{{ movie }}" {% if selected_movie == movie %}selected{% endif %}>{{ movie }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <button type="submit">Recommend</button>
+        </form>
+        <!-- Loader Spinner -->
+        <div id="loader" class="loader-container">
+            <div class="spinner"></div>
+            <p>Fetching recommendations...</p>
+        </div>
+
+        {% if selected_movie %}
+            <h2>Top 5 Movies Similar to "{{ selected_movie }}"</h2>
+            <div class="recommendations-container">
+                {% for title, poster in recommendations %}
+                    <div class="movie-card">
+                        <h3>{{ title }}</h3>
+                        {% if poster %}
+                            <img src="{{ poster }}" alt="{{ title }} poster">
+                        {% else %}
+                            <p>No poster available</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const loader = document.getElementById("loader");
+
+        // Ensure loader is hidden when page loads
+        loader.style.display = "none";
+
+        form.addEventListener("submit", function () {
+            // Show the loader when the form is submitted
+            loader.style.display = "flex";
+        });
+    });
+    </script>
+
+
+</body>
+</html>
