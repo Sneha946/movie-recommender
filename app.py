@@ -22,7 +22,7 @@ app = Flask(__name__)
 movies = pickle.load(open('movie_list.pkl', 'rb'))
 
 # OMDb API key (Replace with your actual API key)
-OMDB_API_KEY = '902bbfc'
+OMDB_API_KEY = ''
 OMDB_URL = "http://www.omdbapi.com/"
 
 
